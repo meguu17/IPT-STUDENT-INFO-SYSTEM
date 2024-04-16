@@ -26,6 +26,16 @@ function ViewUsers() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const storedEmail = localStorage.getItem('email');
+        const isLoginPage = window.location.pathname === '/login'; 
+    
+       
+        if (!(storedEmail ) && !isLoginPage) {
+            window.location.href = "/login";
+        }
+    }, []);
+
     const fetchData = () => {
         axios.get(`http://localhost:1337/viewUsers`)
             .then((response) => {
@@ -142,7 +152,7 @@ function ViewUsers() {
     return (
         <div className="App">
             <h1>View Users</h1>
-            <Button variant="contained" onClick={handleAdd} sx={{ width: "115px" }}><b>ADD USER</b></Button>
+            <Button variant="contained" onClick={handleAdd} sx={{ width: "115px", backgroundColor: '#f1bf7a' }}><b>ADD USER</b></Button>
             <br /> <br />
             <Modal open={modalOpen} onClose={handleCloseModal}>
                 <Box
@@ -214,7 +224,7 @@ function ViewUsers() {
                             <Button
                                 variant="contained"
                                 onClick={handleAddUser}
-                                sx={{ width: "115px" }}
+                                sx={{ width: "115px" ,backgroundColor: '#f1bf7a' }}
                             >
                                 <b>ADD USER</b>
                             </Button>
@@ -242,7 +252,8 @@ function ViewUsers() {
                                 <TableCell align="center">{user.Middle}</TableCell>
                                 <TableCell align="center">{user.Email}</TableCell>
                                 <TableCell align="center">
-                                    <Button variant="contained" onClick={() => handleEdit(user)}><b>EDIT</b></Button>
+                                    <Button variant="contained" onClick={() => handleEdit(user)} 
+                  sx={{ backgroundColor: '#f1bf7a' }}><b>EDIT</b></Button>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -312,13 +323,13 @@ function ViewUsers() {
                         <Button
                             variant="contained"
                             onClick={handleSaveEdit}
-                            sx={{ width: "115px", margin: "20px", marginLeft: "-5px" }}>
+                            sx={{ width: "115px", margin: "20px", marginLeft: "-5px", backgroundColor: '#f1bf7a' }}>
                             <b>Save</b>
                         </Button>
                         <Button
                             variant="contained"
                             onClick={closeData}
-                            sx={{ width: "115px" }}>
+                            sx={{ width: "115px", backgroundColor: '#f1bf7a' }}>
                             <b>Close</b>
                         </Button>
                     </div>

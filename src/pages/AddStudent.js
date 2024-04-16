@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./AddStudent.css";
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useState } from "react";
@@ -19,6 +19,16 @@ function AddStudent() {
   const [courseError, setCourseError] = useState(false);
   const [yearError, setYearError] = useState(false);
   const [formError, setFormError] = useState("");
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
+    const isLoginPage = window.location.pathname === '/login'; 
+
+   
+    if (!(storedEmail ) && !isLoginPage) {
+        window.location.href = "/login";
+    }
+}, []);
 
   async function handleAddStudent(){
 
@@ -209,7 +219,7 @@ function AddStudent() {
               </FormControl>
         </div> <br />
         <div className="bot">
-          <Button variant="contained" onClick={handleAddStudent}><b>ADD STUDENT</b></Button>
+          <Button variant="contained" onClick={handleAddStudent} sx={{ width: '195px', backgroundColor: '#f1bf7a' }}><b>ADD STUDENT</b></Button>
         </div>
     </div>
   );

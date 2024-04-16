@@ -14,6 +14,7 @@ function Sidebar() {
   const hideSidebarOnPages = ["/login", "/signup"].includes(location.pathname);
 
   const logout = () => {
+    localStorage.removeItem('email');
     navigate("/login");
   };
 

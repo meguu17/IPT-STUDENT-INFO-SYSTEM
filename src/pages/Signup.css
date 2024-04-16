@@ -2,17 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100vh;  
 }
 
 .login-box {
-  background-color: #f4f5f8;
+  background-color: #fcf7eb;
   border: 0px solid #cccccc;
   padding: 80px;
   border-radius: 5px;
-  margin-left: 15px;
+  margin-left: 50px;
+  width: 50vh;
 }
 
 .login {
-  margin-left: 5px;
+  margin-left: 10px;
 }

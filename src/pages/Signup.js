@@ -13,6 +13,11 @@ function Signup() {
     const [isLoggedIn, setIsLoggedInn] = useState(false);
     const navigate = useNavigate();
 
+    const [firstNameError, setFirstNameError] = useState(false);
+    const [lastNameError, setLastNameError] = useState(false);
+    const [emailRequiredError, setEmailRequiredError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+
     useEffect(() => {
         if (isLoggedIn) {
             setFirstNamee('');
@@ -23,21 +28,36 @@ function Signup() {
         }
     }, [isLoggedIn]);
 
-    const fetchData = () => {
-        axios.get(`http://localhost:1337/viewUsers`)
-            .then((response) => {
-                console.log("User data:", response.data);
-            })
-            .catch((error) => {
-                console.error("Error fetching user data:", error);
-            });
-    };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     function handleLogin() {
+
+        if (!firstnamee) {
+            setFirstNameError(true);
+        } else {
+            setFirstNameError(false);
+        }
+
+        if (!lastnamee) {
+            setLastNameError(true);
+        } else {
+            setLastNameError(false);
+        }
+
+        if (!emaill) {
+            setEmailRequiredError(true);
+            return;
+        } else {
+            setEmailRequiredError(false);
+        }
+
+        if (!passwordd) {
+            setPasswordError(true);
+            return;
+        } else {
+            setPasswordError(false);
+        }
+
         const userData = {
             First: firstnamee,
             Last: lastnamee,
@@ -68,13 +88,11 @@ function Signup() {
             alert("Please complete all informations.");
             return;
         }
+    };
 
-        localStorage.setItem('first name', firstnamee);
-        localStorage.setItem('last name', lastnamee);
-        localStorage.setItem('middle name', middlenamee);
-        localStorage.setItem('email', emaill);
-        localStorage.setItem('password', passwordd);
-    }
+    const cancel = () => {
+        navigate('/login');
+      };
 
     return (
         <div className='login-container'>
@@ -88,6 +106,8 @@ function Signup() {
                         sx={{ width: '250px' }}
                         value={firstnamee}
                         onChange={(e) => setFirstNamee(e.target.value)}
+                        error={firstNameError}
+                        helperText={firstNameError && "First Name is required"}
                     />
                     <br />
                     <br />
@@ -97,6 +117,8 @@ function Signup() {
                         sx={{ width: '250px' }}
                         value={lastnamee}
                         onChange={(e) => setLastNamee(e.target.value)}
+                        error={lastNameError}
+                        helperText={lastNameError && "Last Name is required"}
                     />
                     <br />
                     <br />
@@ -116,6 +138,8 @@ function Signup() {
                         sx={{ width: '250px' }}
                         value={emaill}
                         onChange={(e) => setEmaill(e.target.value)}
+                        error={emailRequiredError}
+                        helperText={emailRequiredError && "Email is required"}
                     />
                     <br />
                     <br />
@@ -126,15 +150,26 @@ function Signup() {
                         sx={{ width: '250px' }}
                         value={passwordd}
                         onChange={(e) => setPasswordd(e.target.value)}
+                        error={passwordError}
+                        helperText={passwordError && "Password is required"}
                     />
                     <br />
                     <br />
                     <Button
                         variant='contained'
-                        sx={{ width: '250px' }}
+                        sx={{ width: '250px', backgroundColor: '#f1bf7a'}}
                         onClick={handleLogin}
                     >
                         <b>SIGN UP</b>
+                    </Button>
+                    <br />
+                    <br />
+                    <Button
+                        variant='contained'
+                        sx={{ width: '250px', backgroundColor: '#f1bf7a'}}
+                        onClick={cancel}
+                    >
+                        <b>CANCEL</b>
                     </Button>
                 </div>
             </div>

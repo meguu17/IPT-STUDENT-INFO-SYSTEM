@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 
 function ViewStudent() {
+  
   const [students, setStudents] = useState([]);
   const [currentStudent, setCurrentStudent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,6 +45,16 @@ function ViewStudent() {
         console.error("Error fetching student data:", error);
       });
   }, [restartData]);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
+    const isLoginPage = window.location.pathname === '/login'; 
+
+   
+    if (!(storedEmail ) && !isLoginPage) {
+        window.location.href = "/login";
+    }
+}, []);
 
   function handleEditStudent(student) {
     setCurrentStudent(student);
@@ -188,6 +199,7 @@ function ViewStudent() {
                   <Button
                     variant="contained"
                     onClick={() => handleEditStudent(student)}
+                  sx={{ backgroundColor: '#f1bf7a' }}
                   >
                     <b>EDIT</b>
                   </Button>
@@ -285,14 +297,14 @@ function ViewStudent() {
                 <Button
                   variant="contained"
                   onClick={handleEditData}
-                  sx={{ width: "115px", marginRight: "20px" }}
+                  sx={{ width: "115px", marginRight: "20px", backgroundColor: "#f1bf7a" }}
                 >
                   <b>Save</b>
                 </Button>
                 <Button
                   variant="contained"
                   onClick={handleCloseModal}
-                  sx={{ width: "115px" }}
+                  sx={{ width: "115px", backgroundColor: "#f1bf7a" }}
                 >
                   <b>Close</b>
                 </Button>

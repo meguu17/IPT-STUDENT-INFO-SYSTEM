@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 
 function ManageStudent() {
+  
   const [students, setStudents] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -33,6 +34,16 @@ function ManageStudent() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
+    const isLoginPage = window.location.pathname === '/login'; 
+
+   
+    if (!(storedEmail ) && !isLoginPage) {
+        window.location.href = "/login";
+    }
+}, []);
 
   const fetchData = () => {
     axios.get(`http://localhost:1337/viewStudent`)
@@ -114,7 +125,7 @@ function ManageStudent() {
   return (
     <div className='App'>
       <h1>MANAGE STUDENT</h1>
-      <Button variant="contained" onClick={handleAdd} sx={{ width: "160px" }}>
+      <Button variant="contained" onClick={handleAdd} sx={{ backgroundColor: '#f1bf7a' }}>
         <b>ADD STUDENT</b>
       </Button>
       <br />
@@ -194,7 +205,7 @@ function ManageStudent() {
             </FormControl>
             <br />
             <br />
-            <Button variant="contained" onClick={handleAddStudent}><b>ADD STUDENT</b></Button>
+            <Button variant="contained" onClick={handleAddStudent} sx={{backgroundColor: '#f1bf7a' }}><b>ADD STUDENT</b></Button>
           </div>
         </Box>
       </Modal>
@@ -222,7 +233,7 @@ function ManageStudent() {
                 <TableCell align="center">{student.course}</TableCell>
                 <TableCell align="center">{student.year}</TableCell>
                 <TableCell align="center">
-                  <Button variant="contained" onClick={() => handleEdit(student)}><b>EDIT</b></Button>
+                  <Button variant="contained" onClick={() => handleEdit(student)} sx={{ backgroundColor: '#f1bf7a' }}><b>EDIT</b></Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -306,13 +317,13 @@ function ManageStudent() {
             <Button
               variant="contained"
               onClick={handleSaveEdit}
-              sx={{ width: "115px", margin: "20px", marginLeft: "-5px"}}>
+              sx={{ width: "115px", margin: "20px", marginLeft: "-5px", backgroundColor: '#f1bf7a' }}>
               <b>Save</b>
             </Button>
             <Button
               variant="contained"
               onClick={closeData}
-              sx={{ width: "115px" }}>
+              sx={{ width: "115px", backgroundColor: '#f1bf7a' }}>
               <b>Close</b>
             </Button>
           </div>
